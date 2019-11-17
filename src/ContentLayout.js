@@ -6,6 +6,7 @@ import User from "./pages/User.jsx";
 import Test from "./pages/Test.jsx";
 import HookRule from "./pages/HookRule.jsx";
 import HookCustom from "./pages/HookCustom.jsx";
+import HookBug from "./pages/HookBug.jsx";
 
 
 const ContentLayout = () => (
@@ -17,6 +18,7 @@ const ContentLayout = () => (
             <Route path='/test' component={ Test } />
             <Route path='/hook-rule' component={ HookRule } />
             <Route path='/hook-custom' component={ HookCustom } />
+            <Route path='/hook-bug' component={ HookBug } />
             <Route exact path='/' component={ Home } />
             <Redirect from='*' to='/' />
         </Switch>
