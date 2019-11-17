@@ -1,11 +1,9 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 
 export default class Home extends React.Component {
 
     redirectPage = () => {
-        console.log(this.props.history)
-        this.props.history.push('/user/99')
+        this.props.history.push('/test')
     }
 
     render() {
@@ -13,7 +11,7 @@ export default class Home extends React.Component {
             <div>
                 This is Home pages
                  <hr />
-                <button onClick={this.redirectPage} >Go to user</button>
+                <button onClick={this.redirectPage} >Go to Test pages</button>
             </div>
         );
     }
