@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect, useRef  } from 'react';
 import PropTypes from "prop-types";
 
 function searchGithub(query) {
@@ -41,32 +41,27 @@ function GitHubSearchFunction(props) {
     );
 }
 
-export default class HookCustom extends React.Component {
-    state = {
-        search: '',
+export default function HookCustom() {
+
+    const [search, setSearch] = useState('');
+
+    const inputEl = useRef(null);
+
+    const onButtonClick = () => {
+        setSearch(inputEl.current.value)
     };
 
-    inputRef = React.createRef();
-
-    search = e => {
-        e.preventDefault();
-        this.setState({ search: this.inputRef.current.value });
-    };
-
-    render() {
-        const { search } = this.state;
-
-        return (
-            <form onSubmit={this.search}>
-                <input type="text" placeholder="Search" ref={this.inputRef} />
-                <button type="submit" onClick={this.search}>
+    return (
+        <div>
+            <input type="text" placeholder="Search" ref={inputEl}  />
+                <button type="submit" onClick={onButtonClick}>
                     Search
                 </button>
-                <h1>{search && `Search by: ${search}`}</h1>
+            <h1>{search && `Search by: ${search}`}</h1>
                 {search && <GitHubSearchFunction search={search} />}
-            </form>
-        );
-    }
+        </div>
+    );
+
 }
 
 
