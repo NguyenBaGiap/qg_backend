@@ -51,7 +51,11 @@ HookRule.propTypes  = {
 };
 
 /**
- * Rule 1: Call hooks unconditionally at the top level of your component
- * Rule 2: Only call hooks in React functions or custom hooks
+
+ Never call Hooks from inside a loop, condition or nested function
+ Hooks should sit at the top-level of your component
+ Only call Hooks from React functional components
+ Never call a Hook from a regular function
+ Hooks can call other Hooks
  * https://reactjs.org/docs/hooks-rules.html#explanation
  */

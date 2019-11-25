@@ -8,7 +8,17 @@ export default function GitHubSearchFunction(props) {
 
         useEffect(
             () => {
-                searchGithub(search).then(resp => setData(resp));
+                // cleanup
+                //let isCancelled = false;
+                 const abortController = new AbortController();
+
+                searchGithub(search,abortController).then(resp =>  setData(resp));
+
+                return () => {
+                    // cleanup
+                    //isCancelled = true;
+                    abortController.abort();
+                }
             },
             [search]
         );
@@ -17,9 +27,10 @@ export default function GitHubSearchFunction(props) {
     }
 
     //fetch data
-    const  searchGithub = (query) => {
+    const  searchGithub = (query,controller) => {
         return fetch(
-            `https://api.github.com/search/users?q=${query}+repos:%3E42+followers:%3E1000`
+            `https://api.github.com/search/users?q=${query}+repos:%3E42+followers:%3E1000`,
+            { signal: controller.signal }
         )
             .then(resp => resp.json())
             .then(resp => resp.items);
@@ -45,3 +56,9 @@ export default function GitHubSearchFunction(props) {
 GitHubSearchFunction.propTypes  = {
     search: PropTypes.string
 };
+/**
+ Re-render  component
+ Update DOM virtual
+ Tìm sự thay đổi
+ Update DOM thật
+ */

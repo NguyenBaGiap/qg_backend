@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const WebpackMd5Hash = require("webpack-md5-hash");
 
 module.exports = {
-    entry: { app: "./src/index.js" },
+    entry: ['babel-polyfill' , "./src/index.js" ],
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].[chunkhash].js",

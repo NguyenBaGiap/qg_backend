@@ -8,14 +8,14 @@ export default function Header() {
             <div style={{marginBottom:200}}>
 
                 This is Header.
-                {/*Hello {JSON.stringify(user)}*/}
+                Hello {JSON.stringify(user)}
 
-                {/*<button onClick={()=>{*/}
-                {/*    setUser({*/}
-                {/*        username:'Teo',*/}
-                {/*        email:'teo@gmail.com'*/}
-                {/*    })*/}
-                {/*}} > Change</button>*/}
+                <button onClick={()=>{
+                    setUser({
+                        username:'Teo',
+                        email:'teo@gmail.com'
+                    })
+                }} > Change</button>
 
                 <hr />
             </div>
