@@ -1,5 +1,7 @@
 "# qg_backend" 
 
+# Initial npm
+npm init -y
 
 # Setting up the Project
 
