@@ -14,7 +14,7 @@ const ContentLayout = () => (
     <div className="container">
         <Switch>
             <Route path='/about' component={ About } />
-            <Route path='/home/' component={ Home } />
+            <Route path='/home/yua-mikami-friend' component={ Home } />
             <Route path='/user/:id' component={ User } />
             <Route path='/test' component={ Test } />
             <Route path='/hook-rule' component={ HookRule } />
