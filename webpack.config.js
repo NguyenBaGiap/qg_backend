@@ -84,5 +84,9 @@ module.exports = {
         compress: true,
         port: 8080,
         open: "Chrome"
+    },
+    devtool: 'source-map',
+    resolve: {
+        extensions: ['*', '.js', '.jsx']
     }
 };
