@@ -9,7 +9,7 @@ export default class HomeForm extends React.Component {
     }
     incrementStateValue = () => {
         this.setState({
-            value: this.state.value + 1
+            value: 10
         })
         this.props.incrementNumber()
     }
