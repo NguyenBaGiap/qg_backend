@@ -87,5 +87,14 @@ module.exports = {
         port: 8080,
         open: "Chrome"
     },
-    devtool: "source-map"
+    devtool: "source-map",
+    resolve: {
+        alias: {
+            Utilities: path.resolve(__dirname, 'src/utilities/'),
+            Templates: path.resolve(__dirname, 'src/uies/'),
+            Redux: path.resolve(__dirname, 'src/redux/'),
+            Services: path.resolve(__dirname, 'src/services/'),
+        },
+        extensions: ['.js', '.jsx'],
+    }
 };
