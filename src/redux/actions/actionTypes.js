@@ -8,3 +8,6 @@ export const REQUEST_FINISH_STATUS = 'REQUEST_FINISH_STATUS'
 
 // search user github
 export const SEARCH_USER_GITHUB = 'SEARCH_USER_GITHUB'
+
+// search repository github
+export const SEARCH_REPOSITORY_GITHUB = 'SEARCH_REPOSITORY_GITHUB'

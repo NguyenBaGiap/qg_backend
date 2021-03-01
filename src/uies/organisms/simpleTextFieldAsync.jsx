@@ -8,7 +8,8 @@ const SimpleTextFieldAsync = (props) => {
         label,
         meta: { touched, error, warning },
         input,
-        style
+        style,
+        loading
     } = props;
     return(
         <React.Fragment>
@@ -23,6 +24,15 @@ const SimpleTextFieldAsync = (props) => {
                     shrink: true
                 }}
                 label={label}
+                InputProps={{
+                    endAdornment: (
+                        <React.Fragment>
+                            {loading ? (
+                                <CircularProgress color="inherit" size={20} />
+                            ) : null}
+                        </React.Fragment>
+                    )
+                }}
             />
         </React.Fragment>
     )

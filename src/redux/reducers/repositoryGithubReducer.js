@@ -11,7 +11,7 @@ const initialState = {
 
 export const repositoryGithubReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.SEARCH_USER_GITHUB:
+        case actionTypes.SEARCH_REPOSITORY_GITHUB:
             return {
                 ...state,
                 ...action.payload

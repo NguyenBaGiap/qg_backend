@@ -4,6 +4,7 @@ import { connectRouter } from 'connected-react-router'
 import { notificationReducer } from 'Redux/reducers/notificationReducer'
 import { userGithubReducer } from 'Redux/reducers/userGithubReducer'
 import { restApiReducer } from 'Redux/reducers/restApiReducer'
+import {repositoryGithubReducer} from "Redux/reducers/repositoryGithubReducer";
 
 export const rootReducer = history =>
   combineReducers({
@@ -11,5 +12,6 @@ export const rootReducer = history =>
     form: formReducer,
     notificationReducer,
     userGithubReducer,
+    repositoryGithubReducer,
     restApiReducer
   })

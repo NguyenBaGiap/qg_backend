@@ -7,39 +7,51 @@ import SimpleAutoComplete from  'Templates/atoms/simpleAutoComplete'
 import SimpleTextFieldAsync from "Templates/organisms/simpleTextFieldAsync";
 import classes from './homePage.scss'
 import { sleep } from "Utilities/sleep";
+import _ from 'lodash'
 
 class HomePage extends React.Component {
     async componentDidMount() {
+        // await this.props.fetchUsersGithub({
+        //     q: 'ALL'
+        // })
+    }
+
+    fetchUsersGithubDebounce = _.debounce(async value => {
         await this.props.fetchUsersGithub({
-            q: 'ALL'
+            q: value
         })
+    }, 1000)
+
+    onChangeHandleField = (value) => {
+        this.fetchUsersGithubDebounce(value)
     }
 
     render() {
-        const { handleSubmit, pristine, reset, submitting, onSubmit, data, isLoading } = this.props
+        const { handleSubmit, pristine, reset, submitting, onSubmit, userData, isLoading } = this.props
         return(
             <React.Fragment>
                 <Form onSubmit={handleSubmit(onSubmit)}>
                     <div style={{ marginBottom: '10px'}}>
-                        {/*<Field*/}
-                        {/*    name="name"*/}
-                        {/*    type="text"*/}
-                        {/*    component={SimpleAutoComplete}*/}
-                        {/*    options={data.map( item => {*/}
-                        {/*        return {*/}
-                        {/*            label: item.name*/}
-                        {/*        }*/}
-                        {/*    })}*/}
-                        {/*    label={'User Login'}*/}
-                        {/*    style={{ width: '300'}}*/}
-                        {/*/>*/}
                         <Field
                             name="login"
-                            type="text"
-                            component={SimpleTextField}
+                            component={SimpleAutoComplete}
+                            options={userData.map( item => {
+                                return {
+                                    label: item.login
+                                }
+                            })}
                             label={'User Login'}
-                            style={'textField'}
+                            style={{ width: '300'}}
+                            onChangeHandle={this.onChangeHandleField}
+                            loading={isLoading}
                         />
+                        {/*<Field*/}
+                        {/*    name="login"*/}
+                        {/*    type="text"*/}
+                        {/*    component={SimpleTextField}*/}
+                        {/*    label={'User Login'}*/}
+                        {/*    style={'textField'}*/}
+                        {/*/>*/}
                     </div>
                     <div>
                         <Field
@@ -66,7 +78,7 @@ class HomePage extends React.Component {
                 <br />
                 <Loading visible={isLoading} />
                 <div>
-                    { data.map((item,index)=> (
+                    { userData.map((item,index)=> (
                         <React.Fragment key={index}>
                             <p className={classes.textRed}> Name: { item.login}</p>
                             <a href={item.url} > { item.url} </a>

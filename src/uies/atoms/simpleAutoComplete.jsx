@@ -1,6 +1,7 @@
 import * as React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function SimpleAutoComplete(props) {
     const {
@@ -8,7 +9,8 @@ export default function SimpleAutoComplete(props) {
         variant,
         options,
         style,
-        loading
+        loading,
+        onChangeHandle
     } = props
     return (
         <Autocomplete
@@ -21,6 +23,22 @@ export default function SimpleAutoComplete(props) {
                     {...params}
                     label={label}
                     variant={variant || "outlined"}
+                    onChange={ev => {
+                        if (ev.target.value !== "" || ev.target.value !== undefined) {
+                            onChangeHandle(ev.target.value);
+                        }
+                    }}
+                    InputProps={{
+                        ...params.InputProps,
+                        endAdornment: (
+                            <React.Fragment>
+                                {loading ? (
+                                    <CircularProgress color="inherit" size={20} />
+                                ) : null}
+                                {params.InputProps.endAdornment}
+                            </React.Fragment>
+                        )
+                    }}
                 />}
         />
     );
