@@ -4,7 +4,9 @@ import * as userGithubAction from 'Redux/actions/userGithubAction'
 import * as repositoryGithubAction from 'Redux/actions/repositoryGithubAction'
 
 const mapStateToProps = state => ({
-    initialValues: state.userGithubReducer.items[0],
+    initialValues: {
+        login: ''
+    },
     userData: state.userGithubReducer.items,
     repositoryData: state.repositoryGithubReducer.items,
     isLoading: state.restApiReducer.isLoading

@@ -4,12 +4,15 @@ import Loading from 'Templates/organisms/loading'
 import SimpleTextField from  'Templates/atoms/simpleTextField'
 import SimpleButtonField from  'Templates/atoms/simpleButtonField'
 import SimpleAutoComplete from  'Templates/atoms/simpleAutoComplete'
-import SimpleTextFieldAsync from "Templates/organisms/simpleTextFieldAsync";
 import classes from './homePage.scss'
 import { sleep } from "Utilities/sleep";
 import _ from 'lodash'
 
+
 class HomePage extends React.Component {
+    constructor(props) {
+        super(props);
+    }
     async componentDidMount() {
         // await this.props.fetchUsersGithub({
         //     q: 'ALL'
@@ -21,10 +24,6 @@ class HomePage extends React.Component {
             q: value
         })
     }, 1000)
-
-    onChangeHandleField = (value) => {
-        this.fetchUsersGithubDebounce(value)
-    }
 
     render() {
         const { handleSubmit, pristine, reset, submitting, onSubmit, userData, isLoading } = this.props
@@ -42,7 +41,7 @@ class HomePage extends React.Component {
                             })}
                             label={'User Login'}
                             style={{ width: '300'}}
-                            onChangeHandle={this.onChangeHandleField}
+                            onChangeHandle={this.fetchUsersGithubDebounce}
                             loading={isLoading}
                         />
                         {/*<Field*/}
@@ -51,7 +50,10 @@ class HomePage extends React.Component {
                         {/*    component={SimpleTextField}*/}
                         {/*    label={'User Login'}*/}
                         {/*    style={'textField'}*/}
+                        {/*    loading={isLoading}*/}
+                        {/*    disabled={isLoading}*/}
                         {/*/>*/}
+
                     </div>
                     <div>
                         <Field
@@ -61,8 +63,9 @@ class HomePage extends React.Component {
                             color={'primary'}
                             variant={'contained'}
                             label={'Search'}
-                            style={{marginRight : '5px'}}
+                            style={{ marginRight : '5px'}}
                             loading={isLoading}
+                            disabled={pristine || submitting}
                         />
                         <Field
                             name={'clear'}
@@ -76,6 +79,9 @@ class HomePage extends React.Component {
                     </div>
                 </Form>
                 <br />
+                <div>
+                    <span className={classes.textRed}> TEST CSS</span>
+                </div>
                 <Loading visible={isLoading} />
                 <div>
                     { userData.map((item,index)=> (
@@ -85,6 +91,7 @@ class HomePage extends React.Component {
                         </React.Fragment>
                     ))}
                 </div>
+
             </React.Fragment>
         )
     }
@@ -92,7 +99,7 @@ class HomePage extends React.Component {
 
 const validate = async (values, props) => {
     const errors = {};
-
+    console.log("values", values)
     return errors;
 }
 const asyncValidate = (values, dispatch, props, field)=> {
@@ -112,6 +119,7 @@ const asyncValidate = (values, dispatch, props, field)=> {
 export default reduxForm({
     form: 'HomeForm', // a unique identifier for this form,
     enableReinitialize: false,
+    // keepDirtyOnReinitialize:true,
     // asyncValidate,
    // asyncChangeFields: ['name'],
     validate

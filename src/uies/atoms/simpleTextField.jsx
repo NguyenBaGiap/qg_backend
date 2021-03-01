@@ -1,5 +1,6 @@
 import * as React from 'react';
 import TextField from '@material-ui/core/TextField/TextField'
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const SimpleTextField = (props) => {
     const {
@@ -7,7 +8,9 @@ const SimpleTextField = (props) => {
         label,
         meta: { touched, error, warning },
         input,
-        style
+        style,
+        loading,
+        disabled
     } = props;
     return(
         <TextField
@@ -21,6 +24,16 @@ const SimpleTextField = (props) => {
                 shrink: true
             }}
             label={label}
+            disabled={disabled}
+            InputProps={{
+                endAdornment: (
+                    <React.Fragment>
+                        {loading ? (
+                            <CircularProgress color="inherit" size={20} />
+                        ) : null}
+                    </React.Fragment>
+                )
+            }}
         />
     )
 }
