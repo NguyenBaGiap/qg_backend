@@ -4,19 +4,22 @@ import Loading from 'Templates/organisms/loading'
 import SimpleTextField from  'Templates/atoms/simpleTextField'
 import SimpleButtonField from  'Templates/atoms/simpleButtonField'
 import SimpleAutoComplete from  'Templates/atoms/simpleAutoComplete'
-import classes from './homePage.scss'
 import { sleep } from "Utilities/sleep";
 import _ from 'lodash'
-
+import SimpleCardDetail from "Templates/molecules/simpleCardDetail";
+import testImg1 from 'Static/images/xeko.jpg'
+import {makeStyles, withStyles} from '@material-ui/core/styles';
+import test from 'Static/images/chaien.gif'
+import { styles } from "Templates/pages/homePages/homePageStyle";
 
 class HomePage extends React.Component {
     constructor(props) {
         super(props);
     }
     async componentDidMount() {
-        // await this.props.fetchUsersGithub({
-        //     q: 'ALL'
-        // })
+        await this.props.fetchUsersGithub({
+            q: 'ALL'
+        })
     }
 
     fetchUsersGithubDebounce = _.debounce(async value => {
@@ -24,6 +27,10 @@ class HomePage extends React.Component {
             q: value
         })
     }, 1000)
+
+    handleOnchangeLogin = (value) => {
+        this.props.change('login', value.label)
+    }
 
     render() {
         const { handleSubmit, pristine, reset, submitting, onSubmit, userData, isLoading } = this.props
@@ -40,19 +47,11 @@ class HomePage extends React.Component {
                                 }
                             })}
                             label={'User Login'}
-                            style={{ width: '300'}}
-                            onChangeHandle={this.fetchUsersGithubDebounce}
+                            style={styles.root}
+                            onChangeAsync={this.fetchUsersGithubDebounce}
+                            onChangeValue={this.handleOnchangeLogin}
                             loading={isLoading}
                         />
-                        {/*<Field*/}
-                        {/*    name="login"*/}
-                        {/*    type="text"*/}
-                        {/*    component={SimpleTextField}*/}
-                        {/*    label={'User Login'}*/}
-                        {/*    style={'textField'}*/}
-                        {/*    loading={isLoading}*/}
-                        {/*    disabled={isLoading}*/}
-                        {/*/>*/}
 
                     </div>
                     <div>
@@ -79,14 +78,19 @@ class HomePage extends React.Component {
                     </div>
                 </Form>
                 <br />
-                <div>
-                    <span className={classes.textRed}> TEST CSS</span>
-                </div>
+                <SimpleCardDetail
+                    style={styles.cards}
+                    image={testImg1}
+                    content={{
+                        title:' VPBank Cashback Mastercard Debit',
+                        detail: 'Hoàn tiền 0.8% không giới hạn'
+                    }}
+                />
                 <Loading visible={isLoading} />
                 <div>
                     { userData.map((item,index)=> (
                         <React.Fragment key={index}>
-                            <p className={classes.textRed}> Name: { item.login}</p>
+                            <p> Name: { item.login}</p>
                             <a href={item.url} > { item.url} </a>
                         </React.Fragment>
                     ))}
@@ -116,12 +120,14 @@ const asyncValidate = (values, dispatch, props, field)=> {
         }
     })
 }
-export default reduxForm({
+const HomePageComponent = reduxForm({
     form: 'HomeForm', // a unique identifier for this form,
-    enableReinitialize: false,
+    enableReinitialize: true,
     // keepDirtyOnReinitialize:true,
     // asyncValidate,
-   // asyncChangeFields: ['name'],
+    // asyncChangeFields: ['name'],
     validate
 })(HomePage)
+
+export default withStyles(styles)(HomePageComponent)
 

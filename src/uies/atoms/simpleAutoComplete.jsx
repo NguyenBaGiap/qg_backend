@@ -10,14 +10,22 @@ export default function SimpleAutoComplete(props) {
         options,
         style,
         loading,
-        onChangeHandle
+        onChangeAsync,
+        onChangeValue
     } = props
+
     return (
         <Autocomplete
             options={options}
             getOptionLabel={(option) => option.label}
             style={style}
             loading={loading}
+            onChange={(event, value)=>{
+                if(onChangeValue !== undefined && typeof onChangeValue === 'function'){
+                    onChangeValue(value)
+                }
+            }}
+            getOptionSelected={(option, value) => option.id === value.id}
             renderInput={(params) =>
                 <TextField
                     {...params}
@@ -25,7 +33,7 @@ export default function SimpleAutoComplete(props) {
                     variant={variant || "outlined"}
                     onChange={ev => {
                         if (ev.target.value !== "" || ev.target.value !== undefined) {
-                            onChangeHandle(ev.target.value);
+                            onChangeAsync(ev.target.value);
                         }
                     }}
                     InputProps={{

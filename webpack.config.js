@@ -10,7 +10,6 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].[chunkhash].js",
-        publicPath: "/"
     },
     module: {
         rules: [
@@ -44,7 +43,7 @@ module.exports = {
                     {
                         loader: "file-loader",
                         options: {
-                            name: "[name].[ext]",
+                            name: "[name].[hash:8].[ext]",
                             outputPath: "assets/images"
                         }
                     }
@@ -57,7 +56,7 @@ module.exports = {
                         loader: "url-loader",
                         options: {
                             limit: 10000,
-                            name: "fonts/[name].[ext]"
+                            name: "fonts/[name].[hash:8].[ext]"
                         }
                     }
                 ]
@@ -94,7 +93,8 @@ module.exports = {
             Templates: path.resolve(__dirname, 'src/uies/'),
             Redux: path.resolve(__dirname, 'src/redux/'),
             Services: path.resolve(__dirname, 'src/services/'),
+            Static: path.resolve(__dirname, 'src/static/'),
         },
-        extensions: ['.js', '.jsx'],
+        extensions: ['*', '.js', '.jsx'],
     }
 };
